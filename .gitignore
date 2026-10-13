@@ -1,19 +1,7 @@
-tmp/
-.venv/
-__pycache__/
-.playwright-cli/
-.env
-*.pyc
-
-# Material del enunciado y paquetes de entrega locales.
+# El enunciado y los archivos temporales no son parte de la entrega.
 /💼Proyecto Módulo #5 _ ABP.pdf
+/tmp/
+/.playwright-cli/
+.env
 *.zip
 *.rar
-/output/entrega/SHA256SUMS.txt
-
-# Herramientas locales de edición de documentos y páginas auxiliares de captura.
-/requirements.txt
-/scripts/generar_entrega.py
-/scripts/preparar_evidencias.py
-/scripts/empaquetar.py
-/output/evidencias/*.html

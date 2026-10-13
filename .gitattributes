@@ -1,7 +1,2 @@
-# Conservar documentos e imágenes sin conversión de saltos de línea.
-*.pdf binary
+# Conservar el documento Word sin conversiones de texto.
 *.docx binary
-*.png binary
-
-# La evidencia conserva literalmente los espacios de salida del cliente MySQL.
-output/evidencias/*.txt whitespace=-blank-at-eol
