@@ -1,0 +1,44 @@
+--------------
+CREATE DATABASE AlkeWallet
+    CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci
+--------------
+
+--------------
+SHOW DATABASES LIKE 'AlkeWallet'
+--------------
+
++-----------------------+
+| Database (AlkeWallet) |
++-----------------------+
+| AlkeWallet            |
++-----------------------+
+--------------
+SHOW DATABASES LIKE 'AlkeWallet'
+--------------
+
++-----------------------+
+| Database (AlkeWallet) |
++-----------------------+
+| AlkeWallet            |
++-----------------------+
+--------------
+SHOW TABLES
+--------------
+
++----------------------+
+| Tables_in_AlkeWallet |
++----------------------+
+| moneda               |
+| transaccion          |
+| usuario              |
+| vista_top_5_saldos   |
++----------------------+
+--------------
+SELECT VERSION() AS mysql_version, @@transaction_isolation AS aislamiento
+--------------
+
++---------------+-----------------+
+| mysql_version | aislamiento     |
++---------------+-----------------+
+| 8.0.46        | REPEATABLE-READ |
++---------------+-----------------+

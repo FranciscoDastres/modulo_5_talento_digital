@@ -1,0 +1,20 @@
+--------------
+SELECT u.nombre,m.currency_name AS moneda FROM usuario u JOIN moneda m ON m.currency_id=u.currency_id WHERE u.user_id=1
+--------------
+
++------------+--------------+
+| nombre     | moneda       |
++------------+--------------+
+| Ana Torres | Peso chileno |
++------------+--------------+
+--------------
+SELECT m.currency_code,COUNT(t.transaction_id) AS cantidad,COALESCE(SUM(t.importe),0) AS total FROM moneda m LEFT JOIN transaccion t ON t.currency_id=m.currency_id GROUP BY m.currency_id,m.currency_code ORDER BY m.currency_id
+--------------
+
++---------------+----------+----------+
+| currency_code | cantidad | total    |
++---------------+----------+----------+
+| CLP           |        2 | 35000.00 |
+| USD           |        1 |    50.00 |
+| EUR           |        0 |     0.00 |
++---------------+----------+----------+

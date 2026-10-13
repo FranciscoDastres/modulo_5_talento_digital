@@ -1,0 +1,11 @@
+--------------
+SELECT t.transaction_id, e.nombre AS emisor, r.nombre AS receptor, t.importe, m.currency_code FROM transaccion t JOIN usuario e ON e.user_id=t.sender_user_id JOIN usuario r ON r.user_id=t.receiver_user_id JOIN moneda m ON m.currency_id=t.currency_id ORDER BY t.transaction_id
+--------------
+
++----------------+--------------+-------------+----------+---------------+
+| transaction_id | emisor       | receptor    | importe  | currency_code |
++----------------+--------------+-------------+----------+---------------+
+|              1 | Ana Torres   | Bruno Díaz  | 25000.00 | CLP           |
+|              2 | Bruno Díaz   | Carla Soto  | 10000.00 | CLP           |
+|              3 | Elena Pérez  | Diego Rojas |    50.00 | USD           |
++----------------+--------------+-------------+----------+---------------+

@@ -1,0 +1,41 @@
+--------------
+DESCRIBE moneda
+--------------
+
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| currency_id     | int unsigned | NO   | PRI | NULL    | auto_increment |
+| currency_name   | varchar(60)  | NO   | UNI | NULL    |                |
+| currency_symbol | varchar(10)  | NO   |     | NULL    |                |
+| currency_code   | char(3)      | NO   | UNI | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+--------------
+DESCRIBE usuario
+--------------
+
++--------------------+---------------+------+-----+-------------------+-------------------+
+| Field              | Type          | Null | Key | Default           | Extra             |
++--------------------+---------------+------+-----+-------------------+-------------------+
+| user_id            | int unsigned  | NO   | PRI | NULL              | auto_increment    |
+| nombre             | varchar(100)  | NO   |     | NULL              |                   |
+| correo_electronico | varchar(254)  | NO   | UNI | NULL              |                   |
+| contrasena         | varchar(255)  | NO   |     | NULL              |                   |
+| saldo              | decimal(15,2) | NO   |     | 0.00              |                   |
+| currency_id        | int unsigned  | NO   | MUL | NULL              |                   |
+| fecha_creacion     | timestamp     | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++--------------------+---------------+------+-----+-------------------+-------------------+
+--------------
+DESCRIBE transaccion
+--------------
+
++------------------+-----------------+------+-----+----------------------+-------------------+
+| Field            | Type            | Null | Key | Default              | Extra             |
++------------------+-----------------+------+-----+----------------------+-------------------+
+| transaction_id   | bigint unsigned | NO   | PRI | NULL                 | auto_increment    |
+| sender_user_id   | int unsigned    | NO   | MUL | NULL                 |                   |
+| receiver_user_id | int unsigned    | NO   | MUL | NULL                 |                   |
+| currency_id      | int unsigned    | NO   | MUL | NULL                 |                   |
+| importe          | decimal(15,2)   | NO   |     | NULL                 |                   |
+| transaction_date | datetime(6)     | NO   |     | CURRENT_TIMESTAMP(6) | DEFAULT_GENERATED |
++------------------+-----------------+------+-----+----------------------+-------------------+

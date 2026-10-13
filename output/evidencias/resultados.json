@@ -1,0 +1,248 @@
+{
+  "fecha_utc": "2026-10-13T23:07:05.575382+00:00",
+  "motor": "8.0.46",
+  "pruebas": [
+    {
+      "prueba": "Ejecución completa del SQL sin errores",
+      "estado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Tres tablas base",
+      "estado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Tres monedas, seis usuarios y tres transacciones",
+      "estado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Saldos iniciales y transferencias confirmadas",
+      "estado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Correo actualizado mediante COMMIT",
+      "estado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Moneda de un usuario",
+      "estado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Historial de envíos y recepciones",
+      "estado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Conservación de fondos por moneda",
+      "estado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Rechazo de correo duplicado",
+      "estado": "OK",
+      "detalle": "ERROR 1062 (23000) at line 1: Duplicate entry 'bruno@example.com' for key 'usuario.uq_usuario_correo'"
+    },
+    {
+      "prueba": "Rechazo de saldo negativo",
+      "estado": "OK",
+      "detalle": "ERROR 3819 (HY000) at line 1: Check constraint 'chk_usuario_saldo' is violated."
+    },
+    {
+      "prueba": "Rechazo de importe cero en tabla",
+      "estado": "OK",
+      "detalle": "ERROR 3819 (HY000) at line 1: Check constraint 'chk_transaccion_importe' is violated."
+    },
+    {
+      "prueba": "Rechazo de auto transferencia en tabla",
+      "estado": "OK",
+      "detalle": "ERROR 3819 (HY000) at line 1: Check constraint 'chk_transaccion_participantes' is violated."
+    },
+    {
+      "prueba": "FK rechaza receptor inexistente",
+      "estado": "OK",
+      "detalle": "ERROR 1452 (23000) at line 1: Cannot add or update a child row: a foreign key constraint fails (`AlkeWallet`.`transaccion`, CONSTRAINT `fk_transaccion_receptor` FOREIGN KEY (`receiver_user_id`) REFERENCES `usuario` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT)"
+    },
+    {
+      "prueba": "Trigger rechaza monedas incompatibles",
+      "estado": "OK",
+      "detalle": "ERROR 1644 (45000) at line 1: Moneda de transaccion incompatible"
+    },
+    {
+      "prueba": "No se puede borrar un usuario con historial",
+      "estado": "OK",
+      "detalle": "ERROR 1451 (23000) at line 1: Cannot delete or update a parent row: a foreign key constraint fails (`AlkeWallet`.`transaccion`, CONSTRAINT `fk_transaccion_emisor` FOREIGN KEY (`sender_user_id`) REFERENCES `usuario` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT)"
+    },
+    {
+      "prueba": "No se puede cambiar moneda con saldo disponible",
+      "estado": "OK",
+      "detalle": "ERROR 1644 (45000) at line 1: El cambio de moneda requiere saldo cero"
+    },
+    {
+      "prueba": "Saldo insuficiente revierte operación",
+      "estado": "OK",
+      "detalle": "ERROR 1644 (45000) at line 1: Saldo insuficiente"
+    },
+    {
+      "prueba": "Rechazo de transferencias entre monedas",
+      "estado": "OK",
+      "detalle": "ERROR 1644 (45000) at line 1: Los usuarios deben utilizar la misma moneda"
+    },
+    {
+      "prueba": "Rechazo de auto transferencia en procedimiento",
+      "estado": "OK",
+      "detalle": "ERROR 1644 (45000) at line 1: Participantes invalidos"
+    },
+    {
+      "prueba": "Rechazo de importe negativo",
+      "estado": "OK",
+      "detalle": "ERROR 1644 (45000) at line 1: El importe debe ser positivo"
+    },
+    {
+      "prueba": "Rechazo de importe nulo",
+      "estado": "OK",
+      "detalle": "ERROR 1644 (45000) at line 1: El importe debe ser positivo"
+    },
+    {
+      "prueba": "Rechazo de participante nulo",
+      "estado": "OK",
+      "detalle": "ERROR 1644 (45000) at line 1: Participantes invalidos"
+    },
+    {
+      "prueba": "Rechazo de usuario inexistente",
+      "estado": "OK",
+      "detalle": "ERROR 1644 (45000) at line 1: Usuario inexistente"
+    },
+    {
+      "prueba": "Error de FK tras débito revierte saldo e historial",
+      "estado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "DELETE elimina la fila y ROLLBACK la restaura",
+      "estado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Concurrencia: solo un gasto confirma y el otro falla",
+      "estado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Concurrencia: saldo correcto sin sobregiro",
+      "estado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Restauración de datos académicos tras prueba concurrente",
+      "estado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Moneda histórica independiente de la moneda actual",
+      "estado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Restauración tras cambio de moneda con saldo cero",
+      "estado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Durabilidad: COMMIT persiste tras reinicio de MySQL",
+      "estado": "OK",
+      "detalle": ""
+    }
+  ],
+  "capturas": [
+    {
+      "nombre": "01_creacion",
+      "sql": "SHOW DATABASES LIKE 'AlkeWallet'; SHOW TABLES; SELECT VERSION() AS mysql_version, @@transaction_isolation AS aislamiento;",
+      "salida": "--------------\nCREATE DATABASE AlkeWallet\n    CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci\n--------------\n\n--------------\nSHOW DATABASES LIKE 'AlkeWallet'\n--------------\n\n+-----------------------+\n| Database (AlkeWallet) |\n+-----------------------+\n| AlkeWallet            |\n+-----------------------+\n--------------\nSHOW DATABASES LIKE 'AlkeWallet'\n--------------\n\n+-----------------------+\n| Database (AlkeWallet) |\n+-----------------------+\n| AlkeWallet            |\n+-----------------------+\n--------------\nSHOW TABLES\n--------------\n\n+----------------------+\n| Tables_in_AlkeWallet |\n+----------------------+\n| moneda               |\n| transaccion          |\n| usuario              |\n| vista_top_5_saldos   |\n+----------------------+\n--------------\nSELECT VERSION() AS mysql_version, @@transaction_isolation AS aislamiento\n--------------\n\n+---------------+-----------------+\n| mysql_version | aislamiento     |\n+---------------+-----------------+\n| 8.0.46        | REPEATABLE-READ |\n+---------------+-----------------+\n"
+    },
+    {
+      "nombre": "02_join",
+      "sql": "SELECT t.transaction_id, e.nombre AS emisor, r.nombre AS receptor, t.importe, m.currency_code FROM transaccion t JOIN usuario e ON e.user_id=t.sender_user_id JOIN usuario r ON r.user_id=t.receiver_user_id JOIN moneda m ON m.currency_id=t.currency_id ORDER BY t.transaction_id;",
+      "salida": "--------------\nSELECT t.transaction_id, e.nombre AS emisor, r.nombre AS receptor, t.importe, m.currency_code FROM transaccion t JOIN usuario e ON e.user_id=t.sender_user_id JOIN usuario r ON r.user_id=t.receiver_user_id JOIN moneda m ON m.currency_id=t.currency_id ORDER BY t.transaction_id\n--------------\n\n+----------------+--------------+-------------+----------+---------------+\n| transaction_id | emisor       | receptor    | importe  | currency_code |\n+----------------+--------------+-------------+----------+---------------+\n|              1 | Ana Torres   | Bruno Díaz  | 25000.00 | CLP           |\n|              2 | Bruno Díaz   | Carla Soto  | 10000.00 | CLP           |\n|              3 | Elena Pérez  | Diego Rojas |    50.00 | USD           |\n+----------------+--------------+-------------+----------+---------------+\n"
+    },
+    {
+      "nombre": "03_ddl",
+      "sql": "DESCRIBE moneda; DESCRIBE usuario; DESCRIBE transaccion;",
+      "salida": "--------------\nDESCRIBE moneda\n--------------\n\n+-----------------+--------------+------+-----+---------+----------------+\n| Field           | Type         | Null | Key | Default | Extra          |\n+-----------------+--------------+------+-----+---------+----------------+\n| currency_id     | int unsigned | NO   | PRI | NULL    | auto_increment |\n| currency_name   | varchar(60)  | NO   | UNI | NULL    |                |\n| currency_symbol | varchar(10)  | NO   |     | NULL    |                |\n| currency_code   | char(3)      | NO   | UNI | NULL    |                |\n+-----------------+--------------+------+-----+---------+----------------+\n--------------\nDESCRIBE usuario\n--------------\n\n+--------------------+---------------+------+-----+-------------------+-------------------+\n| Field              | Type          | Null | Key | Default           | Extra             |\n+--------------------+---------------+------+-----+-------------------+-------------------+\n| user_id            | int unsigned  | NO   | PRI | NULL              | auto_increment    |\n| nombre             | varchar(100)  | NO   |     | NULL              |                   |\n| correo_electronico | varchar(254)  | NO   | UNI | NULL              |                   |\n| contrasena         | varchar(255)  | NO   |     | NULL              |                   |\n| saldo              | decimal(15,2) | NO   |     | 0.00              |                   |\n| currency_id        | int unsigned  | NO   | MUL | NULL              |                   |\n| fecha_creacion     | timestamp     | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |\n+--------------------+---------------+------+-----+-------------------+-------------------+\n--------------\nDESCRIBE transaccion\n--------------\n\n+------------------+-----------------+------+-----+----------------------+-------------------+\n| Field            | Type            | Null | Key | Default              | Extra             |\n+------------------+-----------------+------+-----+----------------------+-------------------+\n| transaction_id   | bigint unsigned | NO   | PRI | NULL                 | auto_increment    |\n| sender_user_id   | int unsigned    | NO   | MUL | NULL                 |                   |\n| receiver_user_id | int unsigned    | NO   | MUL | NULL                 |                   |\n| currency_id      | int unsigned    | NO   | MUL | NULL                 |                   |\n| importe          | decimal(15,2)   | NO   |     | NULL                 |                   |\n| transaction_date | datetime(6)     | NO   |     | CURRENT_TIMESTAMP(6) | DEFAULT_GENERATED |\n+------------------+-----------------+------+-----+----------------------+-------------------+\n"
+    },
+    {
+      "nombre": "04_commit_rollback",
+      "sql": "START TRANSACTION; UPDATE usuario SET correo_electronico='ana.torres@example.com' WHERE user_id=1; COMMIT; SELECT user_id, saldo, correo_electronico FROM usuario WHERE user_id=1; CALL demostrar_error_referencial(); START TRANSACTION; DELETE FROM transaccion WHERE transaction_id=1; SELECT COUNT(*) AS filas_tras_delete FROM transaccion WHERE transaction_id=1; ROLLBACK; SELECT COUNT(*) AS filas_tras_rollback FROM transaccion WHERE transaction_id=1;",
+      "salida": "--------------\nSTART TRANSACTION\n--------------\n\n--------------\nUPDATE usuario SET correo_electronico='ana.torres@example.com' WHERE user_id=1\n--------------\n\n--------------\nCOMMIT\n--------------\n\n--------------\nSELECT user_id, saldo, correo_electronico FROM usuario WHERE user_id=1\n--------------\n\n+---------+----------+------------------------+\n| user_id | saldo    | correo_electronico     |\n+---------+----------+------------------------+\n|       1 | 75000.00 | ana.torres@example.com |\n+---------+----------+------------------------+\n--------------\nCALL demostrar_error_referencial()\n--------------\n\n+-------------------------------------------+\n| resultado                                 |\n+-------------------------------------------+\n| Error de FK controlado: ROLLBACK completo |\n+-------------------------------------------+\n--------------\nSTART TRANSACTION\n--------------\n\n--------------\nDELETE FROM transaccion WHERE transaction_id=1\n--------------\n\n--------------\nSELECT COUNT(*) AS filas_tras_delete FROM transaccion WHERE transaction_id=1\n--------------\n\n+-------------------+\n| filas_tras_delete |\n+-------------------+\n|                 0 |\n+-------------------+\n--------------\nROLLBACK\n--------------\n\n--------------\nSELECT COUNT(*) AS filas_tras_rollback FROM transaccion WHERE transaction_id=1\n--------------\n\n+---------------------+\n| filas_tras_rollback |\n+---------------------+\n|                   1 |\n+---------------------+\n"
+    },
+    {
+      "nombre": "05_consultas",
+      "sql": "SELECT u.nombre,m.currency_name AS moneda FROM usuario u JOIN moneda m ON m.currency_id=u.currency_id WHERE u.user_id=1; SELECT m.currency_code,COUNT(t.transaction_id) AS cantidad,COALESCE(SUM(t.importe),0) AS total FROM moneda m LEFT JOIN transaccion t ON t.currency_id=m.currency_id GROUP BY m.currency_id,m.currency_code ORDER BY m.currency_id;",
+      "salida": "--------------\nSELECT u.nombre,m.currency_name AS moneda FROM usuario u JOIN moneda m ON m.currency_id=u.currency_id WHERE u.user_id=1\n--------------\n\n+------------+--------------+\n| nombre     | moneda       |\n+------------+--------------+\n| Ana Torres | Peso chileno |\n+------------+--------------+\n--------------\nSELECT m.currency_code,COUNT(t.transaction_id) AS cantidad,COALESCE(SUM(t.importe),0) AS total FROM moneda m LEFT JOIN transaccion t ON t.currency_id=m.currency_id GROUP BY m.currency_id,m.currency_code ORDER BY m.currency_id\n--------------\n\n+---------------+----------+----------+\n| currency_code | cantidad | total    |\n+---------------+----------+----------+\n| CLP           |        2 | 35000.00 |\n| USD           |        1 |    50.00 |\n| EUR           |        0 |     0.00 |\n+---------------+----------+----------+\n"
+    }
+  ],
+  "datos_finales": {
+    "usuarios": [
+      [
+        "1",
+        "Ana Torres",
+        "75000.00",
+        "1"
+      ],
+      [
+        "2",
+        "Bruno Díaz",
+        "65000.00",
+        "1"
+      ],
+      [
+        "3",
+        "Carla Soto",
+        "85000.00",
+        "1"
+      ],
+      [
+        "4",
+        "Diego Rojas",
+        "350.00",
+        "2"
+      ],
+      [
+        "5",
+        "Elena Pérez",
+        "400.00",
+        "2"
+      ],
+      [
+        "6",
+        "Francisca León",
+        "200.00",
+        "3"
+      ]
+    ],
+    "transacciones": [
+      [
+        "1",
+        "1",
+        "2",
+        "25000.00"
+      ],
+      [
+        "2",
+        "2",
+        "3",
+        "10000.00"
+      ],
+      [
+        "3",
+        "5",
+        "4",
+        "50.00"
+      ]
+    ]
+  }
+}
